@@ -1,0 +1,47 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<FormularioASPNET.Models.Asistencia>
+
+<div class="row">
+    <div class="col-sm-8 offset-sm-2">
+        <h2>Lista Asistencias</h2>
+        <a asp-controller="Asistencia" asp-action="Nuevo" class="btn btn-success mb-3">Nuevo</a>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Alumno</th>
+                    <th>Fecha</th>
+                    <th>Presente</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.IdAsistencia</td>
+                        <td>@item.Alumno.NombreAlumno</td>
+                        <td>@item.Date.ToShortDateString()</td>
+                        <td>@(item.Presente ? "Sí" : "No")</td>
+                        <td>
+                            <a asp-controller="Asistencia" asp-action="Editar" asp-route-id="@item.IdAsistencia" class="btn btn-success mb-3">Editar</a>
+                            <a asp-controller="Asistencia" asp-action="Eliminar" asp-route-id="@item.IdAsistencia" onclick="return confirmar()" class="btn btn-danger mb-3">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function confirmar() {
+            return confirm("¿Está seguro que quiere eliminar la asistencia?");
+        }
+    </script>
+}
